@@ -308,3 +308,12 @@ const navbar = document.getElementById('navbar');
       darkToggle.textContent = '🌙';
     }
   });
+
+
+const burger = document.getElementById('burger');
+const navMenu = document.querySelector('.nav-menu');
+
+burger.addEventListener('click', () => {
+  navMenu.classList.toggle('active');
+  burger.classList.toggle('active'); // bisa untuk animasi burger (optional)
+});
