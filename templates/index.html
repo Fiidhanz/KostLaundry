@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KostLaundry - Laundry On Demand</title>
+ <link rel="icon" href="{{ url_for('static', filename='images/Kost.png') }}" type="image/x-icon" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+  
+</head>
+<body><nav id="navbar">
+  <div class="container nav-container">
+    <div class="logo">Kost<span class="pink-text">Laundry</span></div>
+    <ul class="nav-menu">
+      <li><a href="#cara">Cara Kerja</a></li>
+      <li><a href="#harga">Service</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#kontak">Contact</a></li>
+      <li><a href="#about">About</a></li>
+      <li>
+        <button id="openModal" class="btn-reservasi">
+          <i class="fas fa-calendar-check"></i> Reservasi
+        </button>
+      </li>
+      <li>
+        <button id="darkModeToggle" class="btn-darkmode">🌙</button>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div id="modalReservasi" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2><i class="fas fa-calendar-check"></i> Form Reservasi Laundry</h2>
+    <form id="laundryForm" method="POST" action="/submit">
+      <div class="form-group">
+        <label for="nama"><i class="fas fa-user"></i> Nama Lengkap</label>
+        <input type="text" id="nama" name="nama" required>
+      </div>
+
+      <div class="form-group">
+        <label for="wa"><i class="fab fa-whatsapp"></i> No WhatsApp</label>
+        <input type="tel" id="wa" name="wa" required pattern="[0-9]+">
+      </div>
+
+      <div class="form-group">
+        <label for="alamat"><i class="fas fa-map-marker-alt"></i> Alamat Penjemputan</label>
+        <input type="text" id="alamat" name="alamat" required>
+      </div>
+
+      <div class="form-group">
+        <label for="layanan"><i class="fas fa-tags"></i> Pilih Layanan</label>
+        <select id="layanan" name="layanan" required>
+          <option value="" disabled selected>Pilih Layanan</option>
+          <option value="Cuci Lipat">Reguler - Rp 5.000/kg</option>
+          <option value="Cuci Setrika">Paket Reguler - Rp 15.000/5kg</option>
+          <option value="Express">Express - Rp 25.000/kg</option>
+          <option value="Sepatu/Selimut">Paket Express - Rp 100.000</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-calendar-day"></i> Jadwal Penjemputan</label>
+        <div class="form-row">
+          <input type="date" id="tanggal" name="tanggal" required>
+          <input type="time" id="jam" name="jam" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="pesan"><i class="fas fa-comment-dots"></i> Pesan Tambahan</label>
+        <textarea id="pesan" name="pesan" rows="3" placeholder="Tulis catatan khusus jika ada..."></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">
+        <i class="fas fa-paper-plane"></i> Kirim Pesanan
+      </button>
+    </form>
+  </div>
+</div>
+
+<header id="hero">
+  <canvas id="bubbleCanvas"></canvas>
+  <div class="container hero-content">
+    <div class="hero-text">
+      <h1>Laundry On Demand Cepat & Profesional</h1>
+      <p>Cuci, lipat, dan antar langsung ke lokasi Anda. Mudah dan praktis!</p>
+      <a href="https://wa.me/6285706251543" target="_blank" class="btn-primary">Pesan Sekarang</a>
+    </div>
+  </div>
+  <div class="hero-img-right">
+    <img src="static/images/Kost.png" alt="Ilustrasi Laundry">
+  </div>
+</header>
+
+<section id="about" class="section container">
+  <h2 class="section-title">About KostLaundry</h2>
+
+  <div class="about-item">
+    <div class="about-text">
+      <h3>Pelayanan Cepat & Handal</h3>
+      <p>Kami mengutamakan kecepatan dan kualitas dalam setiap proses laundry agar pakaian Anda selalu dalam kondisi terbaik.</p>
+    </div>
+    <div class="about-img">
+      <img src="static/images/pelayanan.jpg" alt="Pelayanan Cepat">
+    </div>
+  </div>
+
+  <div class="about-item reverse">
+    <div class="about-text">
+      <h3>Teknologi Modern</h3>
+      <p>Mesin cuci dan pengering modern kami memastikan kebersihan dan kesegaran pakaian tanpa merusak serat kain.</p>
+    </div>
+    <div class="about-img">
+      <img src="static/images/teknologi.jpg" alt="Teknologi Modern">
+    </div>
+  </div>
+
+  <div class="about-item">
+    <div class="about-text">
+      <h3>Layanan Antar Jemput</h3>
+      <p>Mudahkan aktivitas Anda dengan layanan antar jemput langsung ke lokasi, praktis dan hemat waktu.</p>
+    </div>
+    <div class="about-img">
+      <img src="static/images/antarjemput.jpg" alt="Layanan Antar Jemput">
+    </div>
+  </div>
+</section>
+
+
+<main>
+ <section id="mengapa" class="container section">
+  <h2>Mengapa Harus KostLaundry?</h2>
+  <div class="features">
+    <div class="feature animate">
+      <i class="fas fa-bolt icon-spin"></i>
+      <h3>Proses Cepat & Tepat</h3>
+      <p>Laundry Anda selesai dalam waktu 24 jam tanpa mengurangi kualitas.</p>
+    </div>
+    <div class="feature animate">
+      <i class="fas fa-shipping-fast icon-bounce"></i>
+      <h3>Gratis Jemput & Antar</h3>
+      <p>Layanan door-to-door tanpa biaya tambahan untuk area tertentu.</p>
+    </div>
+    <div class="feature animate">
+      <i class="fas fa-leaf icon-swing"></i>
+      <h3>Aman & Ramah Lingkungan</h3>
+      <p>Gunakan deterjen ramah lingkungan dan aman untuk kulit sensitif.</p>
+    </div>
+  </div>
+</section>
+
+
+<section id="cara" class="container section">
+  <h2>Cara Kerja</h2>
+  <div class="steps">
+    <div class="step animate">
+      <div class="step-number">1</div>
+      <i class="fas fa-edit icon-bounce"></i>
+      <p>Isi form atau hubungi WhatsApp kami</p>
+    </div>
+    <div class="step animate">
+      <div class="step-number">2</div>
+      <i class="fas fa-motorcycle icon-swing"></i>
+      <p>Kurir menjemput cucian Anda</p>
+    </div>
+    <div class="step animate">
+      <div class="step-number">3</div>
+      <i class="fas fa-soap icon-spin"></i>
+      <p>Cucian diproses dengan teliti</p>
+    </div>
+    <div class="step animate">
+      <div class="step-number">4</div>
+      <i class="fas fa-box-open icon-bounce"></i>
+      <p>Kami antar kembali bersih & harum</p>
+    </div>
+  </div>
+</section>
+
+<section id="statistik" class="container section">
+  <h2 class="section-title">Statistik KostLaundry</h2>
+  <div class="stats">
+    <div class="stat animate-fade">
+      <h3 class="counter" data-count="2500">0</h3>
+      <p>Cucian Diselesaikan</p>
+    </div>
+    <div class="stat animate-fade delay">
+      <h3 class="counter" data-count="98">0</h3>
+      <p>Rating Kepuasan (%)</p>
+    </div>
+    <div class="stat animate-fade delay-2">
+      <h3 class="counter" data-count="35">0</h3>
+      <p>Area Terlayani</p>
+    </div>
+  </div>
+</section>
+
+
+
+  <section id="harga" class="container section">
+    <h2>Service List</h2>
+    <div class="pricing-cards">
+      <div class="card">
+        <h3>Reguler</h3>
+        <p class="price">Rp 5.000/kg</p>
+      </div>
+      <div class="card">
+        <h3>Paket Reguler</h3>
+        <p class="price">Rp 15.000/5kg</p>
+      </div>
+      <div class="card">
+        <h3>Express</h3>
+        <p class="price">Rp 25.000/kg</p>
+      </div>
+      <div class="card">
+        <h3>Paket Express</h3>
+        <p class="price">Rp 100.000/5kg</p>
+      </div>
+    </div>
+  </section>
+
+<section id="unggulan" class="container section">
+  <h2 class="section-title">Layanan Unggulan Kami</h2>
+  <div class="unggulan-grid">
+    <div class="unggulan-card animate-pop">
+      <img src="static/images/pickup.jpeg" alt="Jemput Gratis" />
+      <h3>Jemput & Antar Gratis</h3>
+      <p>Tersedia di seluruh area layanan tanpa biaya tambahan.</p>
+    </div>
+    <div class="unggulan-card animate-pop delay">
+      <img src="static/images/express.jpg" alt="Cepat" />
+      <h3>Laundry Express</h3>
+      <p>Selesai dalam 6 jam untuk layanan darurat Anda.</p>
+    </div>
+    <div class="unggulan-card animate-pop delay-2">
+      <img src="static/images/pewangi.jpg" alt="Wangi" />
+      <h3>Pewangi Premium</h3>
+      <p>Aroma tahan lama dengan pilihan varian khusus pelanggan.</p>
+    </div>
+  </div>
+</section>
+
+<section id="estimasi" class="container section">
+  <h2 class="section-title">Estimasi Biaya Laundry</h2>
+  <form id="estimasiForm" class="estimasi-form">
+    <label for="jumlah">Jumlah Pakaian (pcs)</label>
+    <input type="number" id="jumlah" name="jumlah" min="1" required />
+
+    <label for="jenis">Jenis Layanan</label>
+   <select id="jenis" name="jenis" required>
+  <option value="reguler">Reguler (Rp 5.000/kg)</option>
+  <option value="paket-reguler">Paket Reguler (Rp 15.000/5kg)</option>
+  <option value="express">Express (Rp 25.000/kg)</option>
+  <option value="paket-express">Paket Express (Rp 100.000/5kg)</option>
+</select>
+
+
+    <button type="submit" class="btn-submit">Hitung</button>
+  </form>
+
+  <div id="hasilEstimasi" class="hidden hasil-estimasi">
+    <p>Estimasi Berat: <strong><span id="beratEstimasi"></span> kg</strong></p>
+    <p>Total Harga: <strong>Rp <span id="hargaEstimasi"></span></strong></p>
+  </div>
+</section>
+
+
+ <section id="faq" class="container section">
+  <h2 class="section-title">Tanya Jawab (FAQ)</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false" aria-controls="faq1" id="faq1-btn">
+        Bagaimana cara memesan layanan LaundryOn?
+        <span class="icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer" id="faq1" role="region" aria-labelledby="faq1-btn">
+        <p>Anda cukup klik tombol "Pesan Sekarang", isi form alamat dan jadwal penjemputan. Kurir kami akan datang mengambil cucian Anda.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false" aria-controls="faq2" id="faq2-btn">
+        Berapa lama waktu pengerjaan laundry?
+        <span class="icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer" id="faq2" role="region" aria-labelledby="faq2-btn">
+        <p>Biasanya proses cuci dan lipat selesai dalam 24-48 jam, tergantung jenis layanan yang Anda pilih.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false" aria-controls="faq3" id="faq3-btn">
+        Apakah bisa laundry pakaian khusus seperti jas atau gaun?
+        <span class="icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer" id="faq3" role="region" aria-labelledby="faq3-btn">
+        <p>Bisa, kami melayani semua jenis pakaian termasuk pakaian formal dengan penanganan khusus agar tetap rapi dan awet.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section id="pembayaran" class="container section">
+  <h2 class="section-title">Metode Pembayaran</h2>
+
+  <div class="pembayaran-group">
+    <h3 class="sub-title">E-Wallet</h3>
+    <div class="payment-logos">
+      <img class="payment-icon animate-fade delay-0" src="static/images/ovo.png" alt="OVO" />
+      <img class="payment-icon animate-fade delay-1" src="static/images/gopay.png" alt="GoPay" />
+      <img class="payment-icon animate-fade delay-2" src="static/images/dana.png" alt="DANA" />
+      <img class="payment-icon animate-fade delay-3" src="static/images/shopeepay.png" alt="ShopeePay" />
+      <img class="payment-icon animate-fade delay-4" src="static/images/linkaja.png" alt="LinkAja" />
+    </div>
+  </div>
+
+  <div class="pembayaran-group">
+    <h3 class="sub-title">M-Banking</h3>
+    <div class="payment-logos">
+      <img class="payment-icon animate-fade delay-0" src="static/images/bca.png" alt="BCA" />
+      <img class="payment-icon animate-fade delay-1" src="static/images/mandiri.png" alt="Mandiri" />
+      <img class="payment-icon animate-fade delay-2" src="static/images/bni.png" alt="BNI" />
+      <img class="payment-icon animate-fade delay-3" src="static/images/bri.png" alt="BRI" />
+    </div>
+  </div>
+</section>
+
+
+<section id="pesan" class="section-pesan container section">
+  <div class="pesan-wrapper">
+    <div class="form-info animate-fade-in">
+      <h2><i class="fas fa-tshirt"></i> Cucian di rumah sudah numpuk?</h2>
+      <p>Kami siap menjemput dan mencucikan untuk Anda. Pilih layanan, isi form, dan kami akan segera menghubungi Anda.</p>
+      <a href="https://wa.me/6285706251543" target="_blank" class="btn-secondary">
+        <i class="fab fa-whatsapp"></i> Hubungi Kami via WhatsApp
+      </a>
+    </div>
+
+    <form id="laundryForm" class="form-pesan animate-fade-in-right" method="POST" action="/submit">
+      <div class="form-row">
+        <input type="text" id="nama" name="nama" placeholder="Nama Anda" required />
+        <input type="tel" id="wa" name="wa" placeholder="No WhatsApp Aktif" required pattern="[0-9]+" />
+      </div>
+      <input type="text" id="alamat" name="alamat" placeholder="Alamat Penjemputan" required />
+
+      <div class="form-row">
+        <select id="layanan" name="layanan" required>
+          <option value="" disabled selected>Pilih Jenis Layanan</option>
+          <option value="Cuci Lipat">Reguler - Rp 5.000/kg</option>
+          <option value="Cuci Setrika">Paket Reguler - Rp 15.000/5kg</option>
+          <option value="Express">Express - 25.000/kg</option>
+          <option value="Sepatu/Selimut">Paket Express - Rp 100.000</option>
+        </select>
+        <input type="date" id="tanggal" name="tanggal" required />
+        <input type="time" id="jam" name="jam" required />
+      </div>
+
+      <textarea id="pesan" name="pesan" placeholder="Catatan tambahan (opsional)" rows="3"></textarea>
+
+      <button type="submit" class="btn-submit">
+        <i class="fas fa-truck"></i> Pickup Now
+      </button>
+    </form>
+  </div>
+</section>
+
+<section id="testimoni" class="container section">
+  <h2 class="section-title">Apa Kata Pelanggan?</h2>
+  <div class="testimoni-wrapper">
+    <div class="testimoni-card animate-slide delay-0">
+      <img src="static/images/orang1.jpeg" alt="Nisa" class="testi-foto" />
+      <p>"Pelayanan sangat cepat dan ramah. Jemputan tepat waktu!"</p>
+      <div class="testi-rating">
+        <span>★★★★★</span>
+      </div>
+      <h4>- Nisa, Mahasiswa</h4>
+    </div>
+
+    <div class="testimoni-card animate-slide delay-1">
+      <img src="static/images/orang2.jpeg" alt="Rina" class="testi-foto" />
+      <p>"Cucian saya bersih dan wangi banget. Mantap KostLaundry!"</p>
+      <div class="testi-rating">
+        <span>★★★★★</span>
+      </div>
+      <h4>- Rina, Ibu Rumah Tangga</h4>
+    </div>
+
+    <div class="testimoni-card animate-slide delay-2">
+      <img src="static/images/orang3.jpeg" alt="Dimas" class="testi-foto" />
+      <p>"Pernah pakai express, selesai dalam beberapa jam. Puas!"</p>
+      <div class="testi-rating">
+        <span>★★★★☆</span>
+      </div>
+      <h4>- Dimas, Karyawan</h4>
+    </div>
+  </div>
+</section>
+
+ <section id="kontak" class="container section contact-section">
+  <h2 class="section-title">Kontak Kami</h2>
+  <p class="contact-subtitle">Kami siap membantu kebutuhan laundry Anda</p>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <i class="fas fa-phone-alt contact-icon"></i>
+      <div class="contact-info">
+        <h3>Telepon / WhatsApp</h3>
+        <a href="https://wa.me/6285706251543" target="_blank">085706251543</a>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <i class="fas fa-envelope contact-icon"></i>
+      <div class="contact-info">
+        <h3>Email</h3>
+        <a href="mailto:cskostlaundry@gmail.com">cskostlaundry@gmail.com</a>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <i class="fas fa-map-marker-alt contact-icon"></i>
+      <div class="contact-info">
+        <h3>Alamat</h3>
+        <p>Jl. Losawi, Tunjungtirto, Singosari, Malang</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="container footer-container">
+    <p>&copy; 2025 KostLaundry. All rights reserved.</p>
+    <div class="socials">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+  <script src="static/js/script.js"></script>
+  <a href="https://wa.me/6285706251543" target="_blank" class="wa-floating" aria-label="Chat via WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+
+<script>
+  const animatedElements = document.querySelectorAll('.animate');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  animatedElements.forEach(el => {
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
